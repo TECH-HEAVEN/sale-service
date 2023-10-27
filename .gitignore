@@ -149,5 +149,9 @@ src/main/resources/application.yml
 
 *.DS_Store
 
+### Redis ###
+# Ignore redis binary dump (dump.rdb) files
+
+*.rdb
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all,gradle,java.DS_Store
