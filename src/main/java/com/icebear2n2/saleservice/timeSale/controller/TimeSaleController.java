@@ -1,6 +1,7 @@
 package com.icebear2n2.saleservice.timeSale.controller;
 
 import com.icebear2n2.saleservice.domain.request.TimeSaleRequest;
+import com.icebear2n2.saleservice.domain.response.ProductResponse;
 import com.icebear2n2.saleservice.timeSale.service.TimeSaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,8 +15,13 @@ public class TimeSaleController {
     private final TimeSaleService timeSaleService;
 
     @PutMapping
-    public void startProductTimeSale(@RequestBody TimeSaleRequest timeSaleRequest) {
-        timeSaleService.startProductTimeSale(timeSaleRequest);
+    public ResponseEntity<ProductResponse> startProductTimeSale(@RequestBody TimeSaleRequest timeSaleRequest) {
+        ProductResponse productResponse = timeSaleService.startProductTimeSale(timeSaleRequest);
+        if (productResponse.isSuccess()) {
+            return new ResponseEntity<>(productResponse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(productResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping
